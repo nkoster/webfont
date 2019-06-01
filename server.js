@@ -11,9 +11,6 @@ app.use(express.static('public'))
 
 app.post('/submit-form', (req, res) => {
     new formidable.IncomingForm().parse(req)
-        .on('field', (name, field) => {
-            console.log('Field', name, field)
-        })
         .on('fileBegin', (_, file) => {
             file.path = __dirname + '/uploads/' + file.name
         })
