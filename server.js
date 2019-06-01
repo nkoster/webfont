@@ -21,7 +21,7 @@ app.post('/submit-form', (req, res) => {
                     console.log(stdout)
                     const
                         zipName = file.name.split('.').slice(0, -1).join('.') + '.zip',
-                        zipPath = file.path.split("/").slice(0,-1).join("/"),
+                        zipPath = file.path.split('/').slice(0, -1).join('/'),
                         readStream = fs.createReadStream(zipPath + '/' + zipName)
                     res.setHeader('Content-disposition', 'attachment; filename=' + zipName)
                     res.setHeader('Content-type', 'application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip')
