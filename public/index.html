@@ -3,9 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Generate Web Fonts</title>
+<link rel="stylesheet" href="css/Qlassik_TB.css">
+<link rel="stylesheet" href="css/aldo-pc.css">
 <style>
 body {
     text-align: center;
+}
+.containter {
+    opacity: 0;
 }
 .form {
     padding-top: 100px;
@@ -14,12 +19,52 @@ body {
 </style>
 </head>
 <body>
-    <form method="post" action="/get-zip" enctype="multipart/form-data">
-        <div class="form">
-            Select a font file (SVG, TTF, OTF, EOT, WOFF)
-        </div>
-        <input type="file" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
-        <input type="submit" value="Convert Font"/>
-    </form>          
+    <div class='containter'>
+        <form method="post" action="/get-zip" enctype="multipart/form-data">
+            <div class="form">
+                Select a font file (svg, ttf, otf, eot, woff)
+            </div>
+            <input type="file" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
+            <input type="submit" value="Convert Font"/>
+            <div class="form">
+                You'll get a .zip file, with a css/ and a fonts/ directory inside
+            </div>
+        </form>
+    </div>         
 </body>
+<script>
+
+function getRandomColor() {
+    const
+        shadow = 0.8,
+        red = Math.round(Math.random() * 255),
+        shadowRed = Math.round(red * shadow)
+        green = Math.round(Math.random() * 255),
+        shadowGreen = Math.round(green * shadow)
+        blue = Math.round(Math.random() * 255),
+        shadowBlue = Math.round(blue * shadow)
+        t = Math.round(((red * 299) + (green * 587) + (blue * 114)) / 1000),
+        fg = (t > 135) ? 'black' : 'white', // basic 125
+        bg = `rgb(${red},${green},${blue})`
+        sh = `rgb(${shadowRed},${shadowGreen},${shadowBlue})`
+    return { fg, bg, sh, t }
+}
+
+const
+    body = document.getElementsByTagName('body')[0],
+    color = getRandomColor()
+
+body.style.margin = '0'
+body.style.backgroundColor = color.bg
+body.style.color = color.fg
+body.style.fontFamily = 'Qlassik_TB'
+body.style.fontSize = '30px'
+
+setTimeout(() => {
+    container = document.getElementsByClassName('containter')[0]
+    container.style.transition = "all 1s"
+    container.style.opacity = '1'
+}, 500)
+
+</script>
 </html>
