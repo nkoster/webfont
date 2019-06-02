@@ -58,6 +58,6 @@ app.post('/get-zip', (req, res) => {
 
 app.listen(9000)
 
-process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ', err);
+process.on('uncaughtException', err => {
+    console.error('Uncaught exception: ', err);
 });
