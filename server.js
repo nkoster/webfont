@@ -10,7 +10,6 @@ const
 app.use(express.static('public'))
 
 app.post('/get-zip', (req, res) => {
-    // console.log(req.files)
     new formidable.IncomingForm().parse(req)
         .on('fileBegin', (_, file) => {
             file.path = __dirname + '/uploads/' + file.name
@@ -51,7 +50,6 @@ app.post('/get-zip', (req, res) => {
         })
         .on('error', (err) => {
             console.error('Error', err)
-            //throw err
         })
         .on('end', () => {
             console.log('Finished')
