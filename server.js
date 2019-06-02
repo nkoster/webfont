@@ -19,6 +19,7 @@ app.post('/get-zip', (req, res) => {
             console.log('Uploaded file', file.path)
             if (!file.name) {
                 console.log('NO FILENAME')
+                fs.unlink(file.path, err => { if (err) console.log(err) })
             }
             const ext = file.path.split('.').pop().toUpperCase()
             if (['TTF', 'OTF', 'EOT', 'SVG', 'WOFF'].includes(ext) && file.name) {
