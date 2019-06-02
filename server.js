@@ -12,7 +12,8 @@ app.use(express.static('public'))
 app.post('/get-zip', (req, res) => {
     new formidable.IncomingForm().parse(req)
         .on('fileBegin', (_, file) => {
-            file.path = __dirname + '/uploads/' + file.name
+            if (file.name)
+                file.path = __dirname + '/uploads/' + file.name
         })
         .on('file', (_, file) => {
             console.log('Uploaded file', file.path)
@@ -20,7 +21,7 @@ app.post('/get-zip', (req, res) => {
                 console.log('NO FILENAME')
             }
             const ext = file.path.split('.').pop().toUpperCase()
-            if (['TTF', 'OTF', 'EOT', 'SVG', 'WOFF'].includes(ext)) {
+            if (['TTF', 'OTF', 'EOT', 'SVG', 'WOFF'].includes(ext) && file.name) {
                 execFile('/home/niels/bash/webfont.bash', [file.path],
                     (_, stdout) => {
                         console.log(stdout)
@@ -42,9 +43,10 @@ app.post('/get-zip', (req, res) => {
                     })
                 })
             } else {
-                fs.unlink(file.path, err => {
-                    if (err) console.error(err)
-                })
+                if (file.name)
+                    fs.unlink(file.path, err => {
+                        if (err) console.error(err)
+                    })
                 res.redirect('/')
             }
         })
