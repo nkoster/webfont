@@ -10,12 +10,16 @@ const
 app.use(express.static('public'))
 
 app.post('/get-zip', (req, res) => {
+    // console.log(req.files)
     new formidable.IncomingForm().parse(req)
         .on('fileBegin', (_, file) => {
             file.path = __dirname + '/uploads/' + file.name
         })
         .on('file', (_, file) => {
             console.log('Uploaded file', file.path)
+            if (!file.name) {
+                console.log('NO FILENAME')
+            }
             const ext = file.path.split('.').pop().toUpperCase()
             if (['TTF', 'OTF', 'EOT', 'SVG', 'WOFF'].includes(ext)) {
                 execFile('/home/niels/bash/webfont.bash', [file.path],
@@ -47,7 +51,7 @@ app.post('/get-zip', (req, res) => {
         })
         .on('error', (err) => {
             console.error('Error', err)
-            throw err
+            //throw err
         })
         .on('end', () => {
             console.log('Finished')
@@ -55,3 +59,7 @@ app.post('/get-zip', (req, res) => {
 })
 
 app.listen(9000)
+
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+});
