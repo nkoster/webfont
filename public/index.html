@@ -3,8 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Generate Web Fonts</title>
-<link rel="stylesheet" href="css/Qlassik_TB.css">
-<link rel="stylesheet" href="css/aldo-pc.css">
+<link rel="stylesheet" href="css/ripple.css"/>
+<link rel="stylesheet" href="css/Qlassik_TB.css"/>
+<link rel="stylesheet" href="css/aldo-pc.css"/>
 <style>
 body {
     text-align: center;
@@ -24,27 +25,58 @@ input[type='file'] {
     font-size: 70%;
     padding: 20px;
 }
+
+.button {
+    border: 0;
+    outline: 0;
+    background: #1a8cf3;
+    color: white;
+    border-radius: 4px;
+    transition: box-shadow 0.25s;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+/* .browse-btn {
+  border: 0;
+  outline: 0;
+  width: 100px;
+  height: 32px;
+  position: relative;
+  background: #1a8cf3;
+  color: white;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  vertical-align: bottom;
+  transition: box-shadow 0.25s;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} */
+.button:focus {
+  outline: none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
 </style>
 </head>
 <body>
-    <div class='containter'>
-        <form method="post" action="/get-zip" enctype="multipart/form-data">
-            <span style="font-family: 'aldo-pc'">WEB FONT</span>
-            <div class="form">
-                Convert a font to a complete set of web fonts plus CSS
-            </div>
-            <input type="file" id="file-input" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
-            <button class="browse-btn">
-                Select font file
-            </button>
-            <span class="file-info">(svg, ttf, otf, eot, woff)</span>
-            <input type="submit" value="Convert font"/>
-            <div class="form">
-                (You'll get a .zip file, with a css/ and a fonts/ directory inside)
-            </div>
-        </form>
-    </div>         
-</body>
+<div class='containter'>
+    <form method="post" action="/get-zip" enctype="multipart/form-data">
+        <span style="font-family: 'aldo-pc'">WEB FONT</span>
+        <div class="form">
+            Convert a font to a complete set of web fonts plus CSS
+        </div>
+        <input type="file" id="file-input" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
+        <button class="browse-btn button">
+            Select font file
+        </button>
+        <span class="file-info">(svg, ttf, otf, eot, woff)</span>
+        <input type="submit" class="button" value="Convert font"/>
+        <div class="form">
+            (You'll get a .zip file, with a css/ and a fonts/ directory inside)
+        </div>
+    </form>
+</div>         
 <script>
 
 function getRandomColor() {
@@ -96,4 +128,6 @@ setTimeout(() => {
 }, 500)
 
 </script>
+<script src="ripple.js"></script>
+</body>
 </html>
