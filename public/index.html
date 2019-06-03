@@ -16,6 +16,14 @@ body {
     padding-top: 100px;
     padding-bottom: 20px;
 }
+input[type='file'] {
+  opacity: 0;
+  position: absolute;
+}
+.file-info {
+    font-size: 70%;
+    padding: 20px;
+}
 </style>
 </head>
 <body>
@@ -23,10 +31,14 @@ body {
         <form method="post" action="/get-zip" enctype="multipart/form-data">
             <span style="font-family: 'aldo-pc'">WEB FONT</span>
             <div class="form">
-                Select a font file (svg, ttf, otf, eot, woff)
+                Convert a font to a complete set of web fonts plus CSS
             </div>
-            <input type="file" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
-            <input type="submit" value="Convert Font"/>
+            <input type="file" id="file-input" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
+            <button class="browse-btn">
+                Select font file
+            </button>
+            <span class="file-info">(svg, ttf, otf, eot, woff)</span>
+            <input type="submit" value="Convert font"/>
             <div class="form">
                 (You'll get a .zip file, with a css/ and a fonts/ directory inside)
             </div>
@@ -53,7 +65,23 @@ function getRandomColor() {
 
 const
     body = document.getElementsByTagName('body')[0],
-    color = getRandomColor()
+    color = getRandomColor(),
+    browseButton = document.querySelector('.browse-btn'),
+    fileInfo = document.querySelector('.file-info')
+    fileInput = document.getElementById('file-input')
+
+browseButton.addEventListener('click', () => {
+    console.log('Click I')
+    fileInput.click()
+})
+
+fileInput.addEventListener('change', () => {
+    const name = fileInput.value.split(/\\|\//).pop();
+    const truncated = name.length > 20 
+        ? name.substr(name.length - 20) 
+        : name
+    fileInfo.innerHTML = truncated
+})
 
 body.style.margin = '0'
 body.style.backgroundColor = color.bg
