@@ -23,7 +23,7 @@ app.post('/get-zip', (req, res) => {
             }
             const ext = file.path.split('.').pop().toUpperCase()
             if (['TTF', 'OTF', 'EOT', 'SVG', 'WOFF'].includes(ext) && file.name) {
-                execFile('/home/niels/bash/webfont.bash', [file.path],
+                execFile('./webfont.bash', [file.path],
                     (_, stdout) => {
                         console.log(stdout)
                         const zipName = file.name.split('.').slice(0, -1).join('.') + '.zip'
