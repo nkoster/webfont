@@ -62,16 +62,15 @@ input[type='file'] {
 <body>
 <div class='containter'>
     <form method="post" action="/get-zip" enctype="multipart/form-data">
-        <span style="font-family: 'aldo-pc'">WEB FONT</span>
         <div class="form">
             Convert a font to a complete set of web fonts plus CSS
         </div>
         <input type="file" id="file-input" name="document" accept=".svg, .ttf, .otf, .eot, .woff"/>
-        <button class="browse-btn button">
+        <button class="browse-btn">
             Select font file
         </button>
         <span class="file-info">(svg, ttf, otf, eot, woff)</span>
-        <input type="submit" class="button" value="Convert font"/>
+        <input type="submit" value="Convert font"/>
         <div class="form">
             (You'll get a .zip file, with a css/ and a fonts/ directory inside)
         </div>
@@ -107,13 +106,7 @@ browseButton.addEventListener('click', () => {
     fileInput.click()
 })
 
-fileInput.addEventListener('change', () => {
-    const name = fileInput.value.split(/\\|\//).pop();
-    const truncated = name.length > 20 
-        ? name.substr(name.length - 20) 
-        : name
-    fileInfo.innerHTML = truncated
-})
+fileInput.addEventListener('change', () => fileInfo.innerHTML = fileInput.value.split(/\\|\//).pop())
 
 body.style.margin = '0'
 body.style.backgroundColor = color.bg
